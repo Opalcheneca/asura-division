@@ -1,0 +1,21 @@
+https://www.youtube.com/watch?v=2ryxpNewOHg    first setup video
+
+Node commands:
+npm run start:dev
+
+npm uninstall *
+
+
+https://docs.google.com/spreadsheets/d/1RMwJ_3yDBMj9Um0EmgjIUuoSiMr7r6u1RxgEA8puG-I/edit?usp=sharing
+
+https://www.youtube.com/watch?v=s1swJLYxLAA
+
+
+next step:
+- newsletter page-
+- 
+
+to finish:
+- Home page with the 7 balls, to redirect
+after login show newsletter
+- check react-notification
