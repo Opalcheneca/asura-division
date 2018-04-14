@@ -136,7 +136,6 @@ class Home extends Component {
     this.setState({
       isLoading: true,
     })
-
     fetch('/api/account/signin', {
       method: 'POST',
       headers: {
@@ -150,7 +149,6 @@ class Home extends Component {
       .then(json => {
         if (json.success) {
           setInStorage('the_main_app', { token: json.token });
-          setInStorage('the_user_app', { email: signInEmail })
           this.setState({
             signInError: json.message,
             isLoading: false,

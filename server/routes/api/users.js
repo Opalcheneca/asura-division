@@ -31,7 +31,7 @@ module.exports = (app) => {
             .exec()
             .then((userSession) => {
                 const userToken = userSession[0].userId;
-                User.findByIdAndUpdate( userToken )
+                User.findByIdAndUpdate(userToken)
                     .exec()
                     .then((user) => {
                         user.merit = merit;
@@ -41,30 +41,35 @@ module.exports = (app) => {
                             .then(() => res.json(user))
                             .catch((err) => next(err));
                     })
-                })
-            });
+            })
+    });
 
-        app.put('/api/user/:email/accUpdate', (req, res, next) => {
-            const accEmail = req.params.email;
+    app.put('/api/user/:token/accUpdate', (req, res, next) => {
 
-            const { body } = req;
-            const {
-                pGames,
-                pGameNickName,
-                lGames,
-                lGameNickNames
-            } = body;
+        const { body } = req;
+        const {
+            pGames,
+            pGameNickName,
+            lGames,
+            lGameNickNames
+        } = body;
 
-            User.findOneAndUpdate({ email: accEmail })
-                .exec()
-                .then((user) => {
-                    user.pGames = pGames;
-                    user.pGameNickName = pGameNickName;
-                    user.lGames = lGames;
-                    user.lGameNickNames = lGameNickNames;
-                    user.save()
-                        .then(() => res.json(user))
-                        .catch((err) => next(err));
-                })
-        });
-    }
+        UserSession.find({ _id: req.params.token })
+            .exec()
+            .then((userSession) => {
+                const userToken = userSession[0].userId;
+                User.findByIdAndUpdate(userToken)
+                    .exec()
+                    .then((user) => {
+                        user.pGames = pGames;
+                        user.pGameNickName = pGameNickName;
+                        user.lGames = lGames;
+                        user.lGameNickNames = lGameNickNames;
+
+                        user.save()
+                            .then(() => res.json(user))
+                            .catch((err) => next(err));
+                    })
+            })
+    });
+}
