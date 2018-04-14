@@ -20,17 +20,38 @@ class Profile extends Component {
             merit: "",
             nickName: ""
         };
-
         this.rankUpBtn = this.rankUpBtn.bind(this);
-
     }
 
-    componentDidMount() {
-        const {
+    componentDidMount () {
+        let {
             merit,
             cultivation
         } = this.state;
 
+        window.addEventListener('load', this.handleLoad);
+        const obj = getFromStorage('the_main_app');
+        if (obj && obj.token) {
+            const { token } = obj;
+            fetch('/api/user/' + token)
+                .then(res => res.json())
+                .then(json => {
+                    this.setState({
+                        merit: json[0].merit,
+                        cultivation: json[0].cultivation,
+                        nickName: json[0].nickName
+                    });
+                });
+        }
+    }
+
+    componentDidUpdate(){
+        let {
+            merit,
+            cultivation
+        } = this.state;
+
+        window.addEventListener('load', this.handleLoad);
         const obj = getFromStorage('the_main_app');
         if (obj && obj.token) {
             const { token } = obj;
@@ -47,7 +68,7 @@ class Profile extends Component {
     }
 
     cultivating() {
-        const {
+        let {
             merit,
             cultivation
         } = this.state;
@@ -160,7 +181,7 @@ class Profile extends Component {
     }
 
     rankUpBtn(newCultivation, newMerit) {
-        const {
+        let {
             merit,
             cultivation
         } = this.state;
@@ -180,7 +201,7 @@ class Profile extends Component {
     }
 
     render() {
-        const {
+        let {
             merit,
             cultivation,
             nickName
