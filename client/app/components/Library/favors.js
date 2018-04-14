@@ -76,7 +76,7 @@ class Favor extends Component {
       favorTimePeriod,
       favorMerit,
       favors,
-      addFavor
+      addFavor,
     } = this.state;
 
     fetch('/api/favors', {
@@ -171,15 +171,22 @@ class Favor extends Component {
     } else{
       return (
         <div>
-          <p>Favors:</p>
-          <h2></h2>
-          <ul>
+          <h1>Favors</h1>
             {this.state.favors.map((favor, i) => (
-              <li key={i}>
-                <span>{favor.favorLevel} </span>
-              </li>
+              <div key={i}>
+                <div><span>Favor Level: {favor.favorLevel}</span></div>
+                <div><span>Favor Environment: {favor.environment}</span></div>
+                <div><span>Favor Title: {favor.title}</span></div>
+                <div><span>Favor Description: {favor.description}</span></div>
+                <div><span>Favor Time Period: {favor.timePeriod}</span></div>
+                <div><span>Favor Reward Merit: {favor.merit}</span></div>
+                <div><span>Favor Creator: {favor.favorCreator}</span></div>
+                <div><span>Favor Aide: {favor.favorAide}</span></div>
+                <div><span>Favor Level: {favor.favorLevel}</span></div>
+                <hr />
+              </div>
+              
             ))}
-          </ul>
           <button onClick={this.addFavorSection}>Create Favor</button>
         </div>
       );

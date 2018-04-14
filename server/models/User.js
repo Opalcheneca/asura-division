@@ -50,11 +50,11 @@ const UserSchema = new mongoose.Schema({
         type: Object,
         default: ''
     },
-    lGameNickNames: {
+    cGameNickNames: {
         type: Object,
         default: ''
     },
-    lGames: {
+    cGames: {
         type: Object,
         deafult: ''
     },

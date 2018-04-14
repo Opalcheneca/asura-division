@@ -16,7 +16,6 @@ import Rules from './components/About/rules';
 import About from './components/About/about';
 import AsuraSystem from './components/About/asura-system';
 import Newsletter from './components/Library/newsletter';
-import Library from './components/Library/library';
 import Profile from './components/Profile/profile';
 import Favors from './components/Library/favors';
 
@@ -31,7 +30,6 @@ render((
         <Route path="/about-asura" component={About}/>
         <Route path="/asura-system" component={AsuraSystem}/>
         <Route path="/newsletter" component={Newsletter}/>
-        <Route path="/library" component={Library}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/favors" component={Favors}/>
         <Route component={NotFound}/>

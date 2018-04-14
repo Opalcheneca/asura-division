@@ -18,12 +18,26 @@ class Profile extends Component {
             email: "",
             cultivation: "",
             merit: "",
-            nickName: ""
+            nickName: "",
+            country: "",
+            totalmerit: "",
+            avatar: "",
+            roles: "",
+            pGame: "",
+            pGameNickName: "",
+            cGames: "",
+            cGameNickNames: "",
+            heavenCrystals: "",
+            fRank: "",
+            gRank: "",
+            memberTitle: "",
+            palace: "",
+            blackKarma: "",
         };
         this.rankUpBtn = this.rankUpBtn.bind(this);
     }
 
-    componentDidMount () {
+    componentDidMount() {
         const {
             merit,
             cultivation
@@ -38,13 +52,27 @@ class Profile extends Component {
                     this.setState({
                         merit: json[0].merit,
                         cultivation: json[0].cultivation,
-                        nickName: json[0].nickName
+                        nickName: json[0].nickName,
+                        country: json[0].country,
+                        totalMerit: json[0].totalMerit,
+                        avatar: json[0].avatar,
+                        roles: json[0].roles,
+                        pGame: json[0].pGame,
+                        pGameNickName: json[0].pGameNickName,
+                        cGames: json[0].cGames,
+                        cGameNickNames: json[0].cGameNickNames,
+                        heavenCrystals: json[0].heavenCrystals,
+                        fRank: json[0].fRank,
+                        gRank: json[0].gRank,
+                        memberTitle: json[0].memberTitle,
+                        palace: json[0].palace,
+                        blackKarma: json[0].blackKarma,
                     });
                 });
         }
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         let {
             merit,
             cultivation
@@ -203,16 +231,57 @@ class Profile extends Component {
         const {
             merit,
             cultivation,
-            nickName
+            nickName,
+            country,
+            totalMerit,
+            avatar,
+            roles,
+            pGame,
+            pGameNickName,
+            cGames,
+            cGameNickNames,
+            heavenCrystals,
+            fRank,
+            gRank,
+            memberTitle,
+            palace,
+            blackKarma,
         } = this.state;
 
         return (
             <div>
-                <p>Profiles:</p>
-                <h2>{this.state.nickName}</h2>
-                <h2>{this.state.merit}</h2>
-                <h2>{this.state.cultivation}</h2>
-                {this.cultivating()}
+                <h1>Profile Page</h1>
+                <h2>Hello, {this.state.nickName}</h2>
+                <div className="ad-profile">
+                    <h2>AD Profile</h2>
+                    <div><span>Your Asura Palace: {this.state.palace} Palace</span></div>
+                    <div><span>Your Total Merit: {this.state.totalMerit}M</span></div>
+                    <div><span>Your Merit: {this.state.merit}M</span></div>
+                    <div><span>Your Cultivation: {this.state.cultivation}</span></div>
+                    <div><span>Heaven Crystals: {this.state.heavenCrystals}</span></div>
+                    <div><span>Favor Rank: {this.state.fRank}</span></div>
+                    <div><span>Guardian Rank: {this.state.gRank}</span></div>
+                    <div><span>Your Asura Titles: {this.state.memberTitle}</span></div>
+                    <div><span>Your Black Karma Points: {this.state.blackKarma}</span></div>
+                    {this.cultivating()}
+                </div>
+                <div className="account">
+                    <h2>AD Account</h2>
+                    <div><span>Your Nick Name: {this.state.nickName}</span></div>
+                    <div><span>Your Country: {this.state.country}</span></div>
+                    <div><span>Your Avatar: {this.state.avatar}</span></div>
+                    <div><span>Your Role: {this.state.roles}</span></div>
+                </div>
+                <div>
+                    <h2>About Your Games History</h2>
+                    <div><span>Previous Games you have played: {this.state.pGame}</span></div>
+                    <div><span>Previous Games nick names: {this.state.pGameNickName}</span></div>
+                    <div><span>Current Games: {this.state.cGames}</span></div>
+                    <div><span>Current Games nickname: {this.state.cGameNickNames}</span></div>
+                </div>
+                <div>
+                    <h2>Hero Armors</h2>
+                </div>
                 <button onClick={() => { this.editProfile() }}>
                     Edit Your Profile
                 </button>

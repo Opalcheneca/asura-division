@@ -25,7 +25,11 @@ const FavorSchema = new mongoose.Schema({
         type:String,
         default: 0
     }, 
-    assignetTo: {
+    favorCreator: {
+        type: String,
+        default: ""
+    },
+    favorAide: {
         type: String,
         default: ""
     }

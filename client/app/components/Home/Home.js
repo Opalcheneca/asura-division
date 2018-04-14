@@ -277,9 +277,24 @@ class Home extends Component {
     else {
       return (
         <div>
-          <p>Account</p>
-          <Link to="/profile">Profile Page</Link>
-          <button onClick={this.logout}>Logout</button>
+          <div>
+            <h2>Newsletter</h2>
+            <Link to="/newsletter">Newsletter</Link>
+          </div>
+          <div>
+            <h2>Favors</h2>
+            <p>If you need help with something in a game or in real life. Don't be shy to ask, we creater a special system in order to help each other.</p>
+            <Link to="/favors">Favors</Link>
+          </div>
+          <div>
+            <h2>Asura System</h2>
+            <p>This community goes with a special system, for which we spent hours for creating.</p>
+            <Link to="/favors">Favors</Link>
+          </div>
+          <div>
+            <hr />
+            <button onClick={this.logout}>Logout</button>
+          </div>
         </div>
       );
     }

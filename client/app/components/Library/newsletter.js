@@ -11,7 +11,7 @@ class Newsletter extends Component {
     super(props);
 
 
-    
+
     this.state = {
       newsletterTitle: "",
       newsletterDescription: "",
@@ -35,7 +35,7 @@ class Newsletter extends Component {
         this.setState({
           newsletters: json
         });
-      });   
+      });
   }
 
   onTextboxChangeNewsletterTitle(event) {
@@ -97,7 +97,7 @@ class Newsletter extends Component {
         });
     }
 
-    if(roles == "admin") {
+    if (roles == "admin") {
       return (<button onClick={() => { this.addNewsletterSection() }}>Create newsletter</button>);
     }
   }
@@ -134,15 +134,16 @@ class Newsletter extends Component {
     } else {
       return (
         <div>
-          <p>Newsletters:</p>
-          <h2></h2>
-          <ul>
+          <h2>Newsletters</h2>
+          <div>
             {this.state.newsletters.map((newsletter, i) => (
-              <li key={i}>
+              <div class="newsletter-box" key={i}>
+                <h3>{newsletter.title}</h3>
                 <span>{newsletter.description} </span>
-              </li>
+                <span>{newsletter.date} </span>
+              </div>
             ))}
-          </ul>
+          </div>
           {this.createNewsletterButton()}
         </div>
       );
