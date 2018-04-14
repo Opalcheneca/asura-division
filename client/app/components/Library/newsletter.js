@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
 
+import {
+  getFromStorage,
+  setInStorage,
+} from '../../utils/storage';
+
 class Newsletter extends Component {
   constructor(props) {
     super(props);
+
+
+    
     this.state = {
       newsletterTitle: "",
       newsletterDescription: "",
       newsletters: [],
-      addNewsletter: false
+      addNewsletter: false,
+      role: ""
     };
 
     this.onTextboxChangeNewsletterTitle = this.onTextboxChangeNewsletterTitle.bind(this);
@@ -16,6 +25,7 @@ class Newsletter extends Component {
 
     this.newsletterCreation = this.newsletterCreation.bind(this);
     this.addNewsletterSection = this.addNewsletterSection.bind(this);
+    this.createNewsletterButton = this.createNewsletterButton.bind(this);
 
   }
   componentDidMount() {
@@ -25,7 +35,7 @@ class Newsletter extends Component {
         this.setState({
           newsletters: json
         });
-      });
+      });   
   }
 
   onTextboxChangeNewsletterTitle(event) {
@@ -58,9 +68,9 @@ class Newsletter extends Component {
       .then(json => {
         if (json.success) { }
       });
-      this.setState({
-        addNewsletter: false,
-      });
+    this.setState({
+      addNewsletter: false,
+    });
   }
 
   addNewsletterSection() {
@@ -69,14 +79,37 @@ class Newsletter extends Component {
     });
   }
 
+  createNewsletterButton() {
+
+    const {
+      roles,
+    } = this.state;
+
+    const obj = getFromStorage('the_main_app');
+    if (obj && obj.token) {
+      const { token } = obj;
+      fetch('/api/user/' + token)
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            roles: json[0].roles,
+          });
+        });
+    }
+
+    if(roles == "admin") {
+      return (<button onClick={() => { this.addNewsletterSection() }}>Create newsletter</button>);
+    }
+  }
+
   render() {
     const {
       newsletterTitle,
-      newsletterDescription, 
+      newsletterDescription,
       addNewsletter
     } = this.state;
 
-    
+
     if (addNewsletter) {
       return (
         <div>
@@ -98,7 +131,7 @@ class Newsletter extends Component {
           <button onClick={this.newsletterCreation}>Add News</button>
         </div>
       );
-    } else{
+    } else {
       return (
         <div>
           <p>Newsletters:</p>
@@ -110,7 +143,7 @@ class Newsletter extends Component {
               </li>
             ))}
           </ul>
-          <button onClick={this.addNewsletterSection}>Create newsletter</button>
+          {this.createNewsletterButton()}
         </div>
       );
     }

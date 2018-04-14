@@ -24,12 +24,11 @@ class Profile extends Component {
     }
 
     componentDidMount () {
-        let {
+        const {
             merit,
             cultivation
         } = this.state;
 
-        window.addEventListener('load', this.handleLoad);
         const obj = getFromStorage('the_main_app');
         if (obj && obj.token) {
             const { token } = obj;
@@ -68,7 +67,7 @@ class Profile extends Component {
     }
 
     cultivating() {
-        let {
+        const {
             merit,
             cultivation
         } = this.state;
@@ -181,7 +180,7 @@ class Profile extends Component {
     }
 
     rankUpBtn(newCultivation, newMerit) {
-        let {
+        const {
             merit,
             cultivation
         } = this.state;
@@ -201,7 +200,7 @@ class Profile extends Component {
     }
 
     render() {
-        let {
+        const {
             merit,
             cultivation,
             nickName
