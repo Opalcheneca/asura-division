@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
 
+import {
+  getFromStorage,
+  setInStorage,
+} from '../../utils/storage';
+
 class Favor extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +16,8 @@ class Favor extends Component {
       favorDescription: "",
       favorTimePeriod: "",
       favorMerit: "",
+      favorCreator: "",
+      favorAide: "",
       favors: [],
       addFavor: false
     };
@@ -24,6 +31,8 @@ class Favor extends Component {
 
     this.favorCreation = this.favorCreation.bind(this);
     this.addFavorSection = this.addFavorSection.bind(this);
+    this.aideButton = this.aideButton.bind(this);
+    this.closeFavorButton = this.closeFavorButton.bind(this);
 
   }
   componentDidMount() {
@@ -31,11 +40,29 @@ class Favor extends Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
-          favors: json
+          favors: json,
+          favorAide: json[0].favorAide,
         });
       });
+
+    const obj = getFromStorage('the_main_app');
+    if (obj && obj.token) {
+      const { token } = obj;
+      fetch('/api/user/' + token)
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            nickName: json[0].nickName,
+          });
+        });
+    }
   }
 
+  onTextboxChangeFavorCreator(event) {
+    this.setState({
+      favorCreator: event.target.value,
+    })
+  }
   onTextboxChangeFavorlevel(event) {
     this.setState({
       favorLevelCreation: event.target.value,
@@ -69,12 +96,14 @@ class Favor extends Component {
 
   favorCreation() {
     const {
+      favorCreator,
       favorLevelCreation,
       favorEnvironment,
       favorTitle,
       favorDescription,
       favorTimePeriod,
       favorMerit,
+      nickName,
       favors,
       addFavor,
     } = this.state;
@@ -85,6 +114,7 @@ class Favor extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        favorCreator: nickName,
         favorLevel: favorLevelCreation,
         environment: favorEnvironment,
         title: favorTitle,
@@ -96,10 +126,60 @@ class Favor extends Component {
       .then(json => {
         if (json.success) { }
       });
-      this.setState({
-        addFavor: false,
+    this.setState({
+      addFavor: false,
+    });
+  }
+
+  addFavorAide(ID) {
+    const {
+      favorAide,
+      nickName
+    } = this.state;
+
+    const favorID = ID;
+    fetch('/api/favors/' + favorID + '/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        favorAide: nickName
+      }),
+    }).then(res => res.json())
+      .then(json => {
+        if (json.success) { }
       });
   }
+
+  aideButton(aide, ID, favorCreator){
+    const {
+      nickName
+    } = this.state;
+
+    if(aide == "" & favorCreator != nickName) {
+      return(
+        <button onClick={() => { this.addFavorAide(ID) }}>Aide</button>
+      )
+    }    
+  }
+
+
+  closeFavorButton(favorCreator, ID, favorAide, merit){
+    if(favorCreator == nickName) {
+      return(
+        <button onClick={() => { this.closeFavor(ID, favorAide, favorCreator, merit) }}>Close the Favor</button>
+      )
+    }    
+  }
+
+  closeFavor(ID, favorAide, favorCreator, merit){
+    //pyrvo opredeli ranka
+    //nameri favorAide sloju mu ranka i mu dobavi merita
+    //nameri favorCreator i mu mahni merit
+    //find favor ID and delete it
+  }
+
 
   addFavorSection() {
     this.setState({
@@ -118,7 +198,7 @@ class Favor extends Component {
       addFavor
     } = this.state;
 
-    
+
     if (addFavor) {
       return (
         <div>
@@ -168,25 +248,27 @@ class Favor extends Component {
           <button onClick={this.favorCreation}>Create Favor</button>
         </div>
       );
-    } else{
+    } else {
       return (
         <div>
           <h1>Favors</h1>
-            {this.state.favors.map((favor, i) => (
-              <div key={i}>
-                <div><span>Favor Level: {favor.favorLevel}</span></div>
-                <div><span>Favor Environment: {favor.environment}</span></div>
-                <div><span>Favor Title: {favor.title}</span></div>
-                <div><span>Favor Description: {favor.description}</span></div>
-                <div><span>Favor Time Period: {favor.timePeriod}</span></div>
-                <div><span>Favor Reward Merit: {favor.merit}</span></div>
-                <div><span>Favor Creator: {favor.favorCreator}</span></div>
-                <div><span>Favor Aide: {favor.favorAide}</span></div>
-                <div><span>Favor Level: {favor.favorLevel}</span></div>
-                <hr />
-              </div>
-              
-            ))}
+          {this.state.favors.map((favor, i) => (
+            <div key={i}>
+              <div><span>Favor Level: {favor.favorLevel}</span></div>
+              <div><span>Favor Environment: {favor.environment}</span></div>
+              <div><span>Favor Title: {favor.title}</span></div>
+              <div><span>Favor Description: {favor.description}</span></div>
+              <div><span>Favor Time Period: {favor.timePeriod}</span></div>
+              <div><span>Favor Reward Merit: {favor.merit}</span></div>
+              <div><span>Favor Creator: {favor.favorCreator}</span></div>
+              <div><span>Favor Aide: {favor.favorAide}</span></div>
+              <div><span>Favor Level: {favor.favorLevel}</span></div>
+              {this.aideButton(favor.favorAide, favor._id, favor.favorCreator)}
+              {this.closeFavorButton(favor.favorCreator, favor._id, favor.favorAide, favor.merit)}
+              <hr />
+            </div>
+
+          ))}
           <button onClick={this.addFavorSection}>Create Favor</button>
         </div>
       );

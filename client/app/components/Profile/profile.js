@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'whatwg-fetch';
 import { Route, Redirect } from 'react-router';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+
 import Cultivating from './cultivating.jsx';
 
 import {
@@ -24,10 +25,10 @@ class Profile extends Component {
             totalmerit: "",
             avatar: "",
             roles: "",
-            pGame: "",
-            pGameNickName: "",
+            pGames: "",
+            pGamesNickName: "",
             cGames: "",
-            cGameNickNames: "",
+            cGamesNickName: "",
             heavenCrystals: "",
             fRank: "",
             gRank: "",
@@ -41,10 +42,12 @@ class Profile extends Component {
         // this.onTextboxChangePGamesNickName = this.onTextboxChangePGamesNickName.bind(this);
         // this.onTextboxChangeCGames = this.onTextboxChangeCGames.bind(this);
         // this.onTextboxChangeCGamesNickName = this.onTextboxChangeCGamesNickName.bind(this);
-        // this.editProfile = this.editProfile.bind(this);
+        this.editProfile = this.editProfile.bind(this);
     }
 
     componentDidMount() {
+
+
         const {
             merit,
             cultivation
@@ -64,10 +67,10 @@ class Profile extends Component {
                         totalMerit: json[0].totalMerit,
                         avatar: json[0].avatar,
                         roles: json[0].roles,
-                        pGame: json[0].pGame,
-                        pGameNickName: json[0].pGameNickName,
+                        pGames: json[0].pGame,
+                        pGamesNickName: json[0].pGameNickName,
                         cGames: json[0].cGames,
-                        cGameNickNames: json[0].cGameNickNames,
+                        cGamesNickName: json[0].cGameNickNames,
                         heavenCrystals: json[0].heavenCrystals,
                         fRank: json[0].fRank,
                         gRank: json[0].gRank,
@@ -77,6 +80,7 @@ class Profile extends Component {
                     });
                 });
         }
+        
     }
 
     componentDidUpdate() {
@@ -85,7 +89,7 @@ class Profile extends Component {
             cultivation
         } = this.state;
 
-        window.addEventListener('load', this.handleLoad);
+        // window.addEventListener('load', this.handleLoad);
         const obj = getFromStorage('the_main_app');
         if (obj && obj.token) {
             const { token } = obj;
@@ -99,7 +103,7 @@ class Profile extends Component {
                     });
                 });
         }
-    }
+    }    
 
     // onTextboxChangeCountry(event) {
     // 	this.setState({
@@ -130,68 +134,68 @@ class Profile extends Component {
 
 
     editProfile() {
-        //     const {
-        //     country,
-        //     pGames,
-        //     pGameNickName,
-        //     cGames,
-        //     cGamesNickName
-        //     } = this.state;
+        const {
+            country,
+            pGames,
+            pGamesNickName,
+            cGames,
+            cGamesNickName
+        } = this.state;
 
-        //     // const obj = getFromStorage('the_main_app');
-        //     // const { token } = obj;
-        //     // fetch('/api/user/' + token + '/accUpdate', {
-        //     // method: 'PUT',
-        //     // headers: {
-        //     // 'Content-Type': 'application/json'
-        //     // },
-        //     // body: JSON.stringify({
-        //     // merit: merit - newMerit,
-        //     // cultivation: newCultivation
-        //     // }),
-        //     // }).then(res => res.json())
-        //     return (
-        //         <div>
-        //             <input
-        //                 type="text"
-        //                 placeholder="Country"
-        //                 value={country}
-        //                 onChange={this.onTextboxChangeCountry}
-        //             />
-        //             <br />
-        //             <input
-        //                 type="text"
-        //                 placeholder="Previous Games you've played"
-        //                 value={pGames}
-        //                 onChange={this.onTextboxChangePGames}
-        //             />
-        //             <br />
-        //             <input
-        //                 type="text"
-        //                 placeholder="Previous Nick Name on those games you've played"
-        //                 value={pGameNickName}
-        //                 onChange={this.onTextboxChangePGamesNickName}
-        //             />
-        //             <br />
-        //             <input
-        //                 type="text"
-        //                 placeholder="Current Multiplayer games you are playing"
-        //                 value={cGames}
-        //                 onChange={this.onTextboxChangeCGames}
-        //             />
-        //             <br />
-        //             <input
-        //                 type="text"
-        //                 placeholder="Country"
-        //                 value={cGamesNickName}
-        //                 onChange={this.onTextboxChangeCGamesNickName}
-        //             />
-        //             <br />
-        //             <button onClick={() => { this.editProfileButton() }}>
-        //                 Submit
-        //                 </button>
-        //         </div>
-        //     )
+        // const obj = getFromStorage('the_main_app');
+        // const { token } = obj;
+        // fetch('/api/user/' + token + '/accUpdate', {
+        // method: 'PUT',
+        // headers: {
+        // 'Content-Type': 'application/json'
+        // },
+        // body: JSON.stringify({
+        // merit: merit - newMerit,
+        // cultivation: newCultivation
+        // }),
+        // }).then(res => res.json())
+        return (
+            <div>
+                <input
+                    type="text"
+                    placeholder="Country"
+                    value={country}
+                    onChange={this.onTextboxChangeCountry}
+                />
+                <br />
+                <input
+                    type="text"
+                    placeholder="Previous Games you've played"
+                    value={pGames}
+                    onChange={this.onTextboxChangePGames}
+                />
+                <br />
+                <input
+                    type="text"
+                    placeholder="Previous Nick Name on those games you've played"
+                    value={pGamesNickName}
+                    onChange={this.onTextboxChangePGamesNickName}
+                />
+                <br />
+                <input
+                    type="text"
+                    placeholder="Current Multiplayer games you are playing"
+                    value={cGames}
+                    onChange={this.onTextboxChangeCGames}
+                />
+                <br />
+                <input
+                    type="text"
+                    placeholder="Country"
+                    value={cGamesNickName}
+                    onChange={this.onTextboxChangeCGamesNickName}
+                />
+                <br />
+                <button onClick={() => { this.editProfileButton() }}>
+                    Submit
+                        </button>
+            </div>
+        )
 
     }
 
@@ -204,10 +208,10 @@ class Profile extends Component {
             totalMerit,
             avatar,
             roles,
-            pGame,
-            pGameNickName,
+            pGames,
+            pGamesNickName,
             cGames,
-            cGameNickNames,
+            cGamesNickName,
             heavenCrystals,
             fRank,
             gRank,
@@ -242,8 +246,8 @@ class Profile extends Component {
                 </div>
                 <div>
                     <h2>About Your Games History</h2>
-                    <div><span>Previous Games you have played: {this.state.pGame}</span></div>
-                    <div><span>Previous Games nick names: {this.state.pGameNickName}</span></div>
+                    <div><span>Previous Games you have played: {this.state.pGames}</span></div>
+                    <div><span>Previous Games nick names: {this.state.pGamesNickName}</span></div>
                     <div><span>Current Games: {this.state.cGames}</span></div>
                     <div><span>Current Games nickname: {this.state.cGameNickNames}</span></div>
                 </div>

@@ -3,6 +3,8 @@ import { Route, Redirect } from 'react-router'
 import 'whatwg-fetch';
 import { Link } from 'react-router-dom';
 
+import TopNewsletters from './topNewsletters.jsx';
+
 import {
   getFromStorage,
   setInStorage,
@@ -21,7 +23,7 @@ class Home extends Component {
       signUpError: '',
       signInError: '',
       signInEmail: '',
-      signInPassword: ''
+      signInPassword: '',
     };
 
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
@@ -33,7 +35,6 @@ class Home extends Component {
     this.onSignIn = this.onSignIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
     this.logout = this.logout.bind(this);
-    // this.entryElements = this.entryElements.bind(this);
   }
 
   componentDidMount() {
@@ -207,12 +208,6 @@ class Home extends Component {
       signUpError,
     } = this.state;
 
-    if (isLoading) {
-      return (<div><p>Loading...</p></div>)
-    }
-
-
-
     if (!token) {
       return (
         <div>
@@ -280,6 +275,7 @@ class Home extends Component {
           <div>
             <h2>Newsletter</h2>
             <Link to="/newsletter">Newsletter</Link>
+            <TopNewsletters />
           </div>
           <div>
             <h2>Favors</h2>

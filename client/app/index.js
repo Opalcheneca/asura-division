@@ -18,6 +18,7 @@ import AsuraSystem from './components/About/asura-system';
 import Newsletter from './components/Library/newsletter';
 import Profile from './components/Profile/profile';
 import Favors from './components/Library/favors';
+import AdminPage from './components/Admin/adminPage';
 
 import './styles/styles.scss';
 
@@ -32,6 +33,7 @@ render((
         <Route path="/newsletter" component={Newsletter}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/favors" component={Favors}/>
+        <Route path="/adminPage" component={AdminPage}/>
         <Route component={NotFound}/>
       </Switch>
     </App>

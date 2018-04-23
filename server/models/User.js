@@ -82,6 +82,10 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: '0'
     },
+    cultivatorMedals: {
+        type: Number,
+        default: '0'
+    },
     hauberks: {
         type: String,
         default: ''
@@ -115,6 +119,14 @@ const UserSchema = new mongoose.Schema({
         default: ''
     },
     ring: {
+        type: String,
+        default: ''
+    },
+    notificationBox: {
+        type: Object,
+        default: ''
+    },
+    familiar: {
         type: String,
         default: ''
     }

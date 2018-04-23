@@ -9,6 +9,13 @@ module.exports = (app) => {
           .catch((err) => next(err));
       });
 
+      app.get('/api/home/newsletters', (req, res, next) => {
+        Newsletter.find().sort('-date').limit(3)
+          .exec()
+          .then((newsletter) => res.json(newsletter))
+          .catch((err) => next(err));
+      });
+
       app.post('/api/newsletters', function (req, res, next) {
         const { body } = req;
         const {

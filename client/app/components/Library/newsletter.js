@@ -137,7 +137,7 @@ class Newsletter extends Component {
           <h2>Newsletters</h2>
           <div>
             {this.state.newsletters.map((newsletter, i) => (
-              <div class="newsletter-box" key={i}>
+              <div CssClass="newsletter-box" key={i}>
                 <h3>{newsletter.title}</h3>
                 <span>{newsletter.description} </span>
                 <span>{newsletter.date} </span>
